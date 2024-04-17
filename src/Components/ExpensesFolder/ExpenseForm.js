@@ -1,5 +1,5 @@
 import React from 'react';
-import GenericForm from '../GenericForm'; // Importing the GenericForm component
+import GenericForm from '../GenericForm';
 
 const ExpenseForm = ({ projects, expense, handleInputChange, handleSubmit, handleCancel }) => {
   const fields = [
@@ -19,7 +19,6 @@ const ExpenseForm = ({ projects, expense, handleInputChange, handleSubmit, handl
     }
   ];
 
-  // Creating formData object with both employee and department data
   const formData = {
     amount: expense.amount,
     date: expense.date,

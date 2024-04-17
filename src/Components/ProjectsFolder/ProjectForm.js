@@ -5,7 +5,7 @@ const ProjectForm = ({ employees, clients, project, handleInputChange, handleSub
   const fields = [
     { name: 'projectName', label: 'Project Name', type: 'text' },
     { name: 'startDate', label: 'Start Date', type: 'date' },
-    {name: 'endDate', label: 'End Date', type: 'date'},
+    { name: 'endDate', label: 'End Date', type: 'date' },
     {
       name: 'employeeId',
       label: 'Select Manager',
@@ -19,13 +19,13 @@ const ProjectForm = ({ employees, clients, project, handleInputChange, handleSub
       ]
     },
     {
-      name: 'clientId',
+      name: 'clientName',
       label: 'Select Client',
       type: 'select',
       options: [
         { value: '', text: 'Select a client...' },
         ...clients.map((client) => ({
-          value: client.id,
+          value: client.clientName,
           text: client.clientName
         }))
       ]
@@ -37,7 +37,7 @@ const ProjectForm = ({ employees, clients, project, handleInputChange, handleSub
     startDate: project.startDate,
     endDate: project.endDate,
     employeeId: project.employeeId,
-    clientId: project.clientId,
+    clientName: project.clientName,
   };
 
   return (
