@@ -1,11 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import TabbedNavigation from './Components/TabbedNavigation';
 
 function App() {
   return (
-    <div className="App">
-      <TabbedNavigation />
-    </div>
+    <Router> 
+      <div className="App">
+        <TabbedNavigation />
+      </div>
+    </Router>
   );
 }
 

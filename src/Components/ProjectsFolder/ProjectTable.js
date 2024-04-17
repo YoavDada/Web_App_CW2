@@ -21,8 +21,8 @@ const ProjectTable = ({ projects, handleEdit, handleDelete }) => {
       <td>{project.projectName}</td>
       <td>{project.startDate}</td>
       <td>{project.endDate}</td>
-      <td>{project.employee}</td>
-      <td>{project.client}</td>
+      <td>{project.employeeId}</td>
+      <td>{project.clientName}</td>
       <td>
         <button onClick={() => handleEdit(project.id)}>Edit</button>
         <button onClick={() => handleDelete(project.id)}>Delete</button>

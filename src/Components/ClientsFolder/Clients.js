@@ -32,7 +32,6 @@ const handleEdit = (id) => {
   console.log('Selected client:', selected);
   setSelectedClient(null);
 
-  // Ensure that the property names match the expected format (id, firstName, lastName, enrollmentDate)
   setEditingClient({ id: selected.id, clientName: selected.clientName, industry: selected.industry});
 };
 
