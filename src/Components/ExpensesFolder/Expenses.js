@@ -81,10 +81,13 @@ const handleFormSubmit = async (event) => {
       if (editingExpense.id) {
         console.log('Updating existing expense:', editingExpense);
         await axios.put(`${API_BASE_URL}Expense/${editingExpense.id}`, editingExpense);
-		
+    
       } else {
-        // Remove the existing id property for new expenses
         const { id, ...newExpense } = editingExpense;
+
+        const selectedProject = projects.find((project) => project.projectName === newExpense.projectName);
+
+        newExpense.project = selectedProject;
         console.log('Creating new expense:', newExpense);
         await axios.post(`${API_BASE_URL}Expense`, newExpense);
       }
