@@ -7,7 +7,7 @@ import Expenses from './ExpensesFolder/Expenses';
 import Register from './RegisterFolder/Register';
 import Login from './LoginFolder/Login';
 
-const TabbedNavigation = () => {
+const TabbedNavigation = ({ isLoggedIn, handleLogout }) => {
   const [selectedTab, setSelectedTab] = useState('Register'); // Set the default tab to 'Register'
 
   const handleTabClick = (tab) => {
@@ -17,6 +17,14 @@ const TabbedNavigation = () => {
   return (
     <div>
       <div className="tabs">
+        {isLoggedIn && (
+          <button
+            className={selectedTab === 'Logout' ? 'active' : ''}
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </button>
+        )}
         <button
           className={selectedTab === 'Register' ? 'active' : ''}
           onClick={() => handleTabClick('Register')}
@@ -59,14 +67,13 @@ const TabbedNavigation = () => {
         >
           Expenses
         </button>
-
       </div>
       <div className="tab-content"> {/* Render the components based on selected tab */}
         {selectedTab === 'Register' && <Register />}
         {selectedTab === 'Login' && <Login />}
         {selectedTab === 'Employees' && <Employees />}
-        {selectedTab === 'Clients' && <Clients/>}
-        {selectedTab === 'Departments' && <Departments/>}
+        {selectedTab === 'Clients' && <Clients />}
+        {selectedTab === 'Departments' && <Departments />}
         {selectedTab === 'Projects' && <Projects />}
         {selectedTab === 'Expenses' && <Expenses />}
       </div>

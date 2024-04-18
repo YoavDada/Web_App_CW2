@@ -65,7 +65,7 @@ const handleEdit = (id) => {
 
   const handleCreate = () => {
     setSelectedEmployee(null);
-    setEditingEmployee({ firstName: '', lastName: '', department: '' });
+    setEditingEmployee({ firstName: '', lastName: '', department: null });
   };
 
   const handleCancelEdit = () => {
@@ -84,6 +84,10 @@ const handleFormSubmit = async (event) => {
 		
       } else {
         const { id, ...newEmployee } = editingEmployee;
+
+        const selectedDepartment = departments.find((department) => department.departmentName === newEmployee.departmentName);
+        
+        newEmployee.department = selectedDepartment;
         console.log('Creating new employee:', newEmployee);
         await axios.post(`${API_BASE_URL}Employee`, newEmployee);
       }

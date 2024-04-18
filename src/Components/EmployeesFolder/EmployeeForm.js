@@ -6,13 +6,13 @@ const EmployeeForm = ({ departments, employee, handleInputChange, handleSubmit, 
     { name: 'firstName', label: 'First Name', type: 'text' },
     { name: 'lastName', label: 'Last Name', type: 'text' },
     {
-      name: 'departmentId',
+      name: 'departmentName',
       label: 'Select Department',
       type: 'select',
       options: [
         { value: '', text: 'Select a department...' },
         ...departments.map((department) => ({
-          value: department.id,
+          value: department.departmentName,
           text: department.departmentName
         }))
       ]
@@ -23,7 +23,7 @@ const EmployeeForm = ({ departments, employee, handleInputChange, handleSubmit, 
   const formData = {
     firstName: employee.firstName,
     lastName: employee.lastName,
-    departmentId: employee.departmentId,
+    departmentName: employee.departmentName,
   };
 
   return (

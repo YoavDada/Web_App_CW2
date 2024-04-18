@@ -95,10 +95,9 @@ const handleFormSubmit = async (event) => {
         await axios.put(`${API_BASE_URL}Project/${editingProject.id}`, editingProject);
 		
       } else {
-        // Remove the existing id property for new projects
         const { id, ...newProject } = editingProject;
 
-        const selectedEmployee = employees.find((employee) => employee.id === newProject.employeeId);
+        const selectedEmployee = employees.find((employee) => employee.lastName === newProject.lastName);
         const selectedClient = clients.find((client) => client.clientName === newProject.clientName);
 
         newProject.employee = selectedEmployee;

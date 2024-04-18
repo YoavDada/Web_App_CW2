@@ -18,7 +18,7 @@ const EmployeeTable = ({ employees, handleEdit, handleDelete }) => {
       <td>{employee.id}</td>
       <td>{employee.firstName}</td>
       <td>{employee.lastName}</td>
-      <td>{employee.department}</td>
+      <td>{employee.departmentName}</td>
       <td>
         <button onClick={() => handleEdit(employee.id)}>Edit</button>
         <button onClick={() => handleDelete(employee.id)}>Delete</button>
