@@ -1,34 +1,15 @@
 import React from 'react';
+import GenericTable from '../GenericTable';
 
 const EmployeeTable = ({ employees, handleEdit, handleDelete }) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Department</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-  {employees.map((employee) => (
-    <tr key={employee.id}>
-      <td>{employee.id}</td>
-      <td>{employee.firstName}</td>
-      <td>{employee.lastName}</td>
-      <td>{employee.departmentName}</td>
-      <td>
-        <button onClick={() => handleEdit(employee.id)}>Edit</button>
-        <button onClick={() => handleDelete(employee.id)}>Delete</button>
-      </td>
-    </tr>
-  ))}
-</tbody>
+  const columns = [
+    { field: 'id', headerName: 'ID' },
+    { field: 'firstName', headerName: 'First Name' },
+    { field: 'lastName', headerName: 'Last Name' },
+    { field: 'departmentName', headerName: 'Department' }
+  ];
 
-    </table>
-  );
+  return <GenericTable columns={columns} data={employees} handleEdit={handleEdit} handleDelete={handleDelete} />;
 };
 
 export default EmployeeTable;
