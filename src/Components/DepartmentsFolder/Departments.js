@@ -26,16 +26,14 @@ const Departments = () => {
     }
   };
 
-const handleEdit = (id) => {
-  console.log('Edit button clicked for id:', id);
-  const selected = departments.find((department) => department.id === id);
-  console.log('Selected department:', selected);
-  setSelectedDepartment(null);
+  const handleEdit = (id) => {
+    console.log('Edit button clicked for id:', id);
+    const selected = departments.find((department) => department.id === id);
+    console.log('Selected department:', selected);
+    setSelectedDepartment(null);
 
-  setEditingDepartment({ id: selected.id, departmentName: selected.departmentName, location: selected.location});
-};
-
-
+    setEditingDepartment({ id: selected.id, departmentName: selected.departmentName, location: selected.location});
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -85,9 +83,6 @@ const handleFormSubmit = async (event) => {
     setEditingDepartment(null);
   }
 };
-
-
-
 
   return (
     <div>

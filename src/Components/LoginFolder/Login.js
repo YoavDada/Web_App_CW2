@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../../apiConfig';
 import LoginForm from './LoginForm';
-import Employees from '../EmployeesFolder/Employees';
+import Register from '../RegisterFolder/Register';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const [showRegister, setShowRegister] = useState(false); // State to toggle between Login and Register
 
   useEffect(() => {
-    // Check if the user is already logged in when the component mounts
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
@@ -18,63 +19,56 @@ const Login = () => {
   }, []);
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
       const response = await axios.post(`${API_BASE_URL}account/login`, formData);
-      console.log('Login response:', response.data);
-      
-      // Store the JWT token in local storage
       localStorage.setItem('token', response.data.token);
-  
-      // Set the authorization header for all subsequent axios requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-  
-      // Update the isLoggedIn state to true
       setIsLoggedIn(true);
-  
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid email or password');
     }
-  };  
-
-  const handleLogout = () => {
-    // Clear the JWT token from local storage
-    localStorage.removeItem('token');
-    
-    // Update the isLoggedIn state to false
-    setIsLoggedIn(false);
   };
 
-  return (
-    <div>
-      {isLoggedIn ? (
-        <div>
-          <h2>Welcome</h2>
-          <button onClick={handleLogout}>Logout</button>
-          <Employees />
-        </div>
-      ) : (
-        <div>
-          <h2>Login</h2>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <LoginForm
-            formData={formData}
-            handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-          />
-        </div>
-      )}
-    </div>
-  );
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+    setIsLoggedIn(false);
+    setIsLoggedOut(true);
+  };
+
+  const handleRegister = () => {
+    setShowRegister(true);
+  };
+
+  if (isLoggedIn && !isLoggedOut) {
+    return (
+      <div>
+        <h2>Welcome</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    );
+  } else if (showRegister) {
+    return <Register />;
+  } else {
+    return (
+      <div>
+        <h2>Login</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <LoginForm
+          formData={formData}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          handleRegister={handleRegister}
+        />
+      </div>
+    );
+  }
 };
 
 export default Login;

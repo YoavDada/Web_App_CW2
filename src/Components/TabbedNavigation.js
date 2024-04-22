@@ -35,7 +35,7 @@ const TabbedNavigation = ({ isLoggedIn, handleLogout }) => {
           className={selectedTab === 'Login' ? 'active' : ''}
           onClick={() => handleTabClick('Login')}
         >
-          Login
+          Login/Logout
         </button>
         <button
           className={selectedTab === 'Employees' ? 'active' : ''}
