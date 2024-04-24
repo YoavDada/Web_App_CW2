@@ -4,6 +4,8 @@ import { API_BASE_URL } from '../../apiConfig';
 import EmployeeList from './EmployeeList';
 import EmployeeDetails from './EmployeeDetails';
 import EmployeeForm from './EmployeeForm';
+import Footer from '../Footer'; 
+
 
 const Employees = () => {
   const [employees, setEmployees] = useState([]);
@@ -57,11 +59,13 @@ const handleEdit = (id) => {
     }
   };
 
-  const handleViewDetails = (id) => {
+  /*
+    const handleViewDetails = (id) => {
     const selected = employees.find((employee) => employee.id === id);
     setSelectedEmployee(selected);
     setEditingEmployee(null);
   };
+  */
 
   const handleCreate = () => {
     setSelectedEmployee(null);
@@ -101,23 +105,39 @@ const handleFormSubmit = async (event) => {
   }
 };
 
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  
+  if (name === 'firstName' || name === 'lastName') {
+    if (!/^[a-zA-Z]*$/.test(value)) {
+      return; 
+    }
+  }
 
+  setEditingEmployee(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
 
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <div className="flex-grow-1">
       <EmployeeList employees={employees} handleEdit={handleEdit} handleDelete={handleDelete} />
       {selectedEmployee && <EmployeeDetails employee={selectedEmployee} />}
       {editingEmployee && (
         <EmployeeForm
           departments={departments}
           employee={editingEmployee}
-          handleInputChange={(e) => setEditingEmployee({ ...editingEmployee, [e.target.name]: e.target.value })}
+          handleInputChange={handleInputChange}
           handleSubmit={handleFormSubmit}
           handleCancel={handleCancelEdit}
         />
       )}
-      <button onClick={handleCreate}>Create New Employee</button>
+      {!editingEmployee && <button onClick={handleCreate} className="btn btn-success">Create New Employee</button>}
+      </div>
+      <Footer />
     </div>
   );
 };

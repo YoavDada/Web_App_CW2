@@ -34,7 +34,12 @@ const Register = () => {
       setIsLoggingIn(true); // Redirect to login after registration
     } catch (error) {
       console.error('Error registering user:', error);
-      setError('Error registering the user');
+      setFormData({ email: '', password: '' });
+      if (error.response && error.response.data && error.response.data.length > 0) {
+        setError(error.response.data[0].description || 'Error registering the user');
+      } else {
+        setError('Unexpected error occurred. Please try again.');
+      }
     }
   };
 
@@ -48,14 +53,13 @@ const Register = () => {
 
   return (
     <div>
-    <h2>Register</h2>
+      {error && <div className="alert alert-warning" role="alert">{error}</div>}
         <RegisterForm
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           handleLogin={handleLogin}
         />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };

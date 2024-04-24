@@ -19,7 +19,7 @@ const GenericTable = ({ columns, data, handleEdit, handleDelete }) => {
             ))}
             <td>
               <button className="btn btn-info" onClick={() => handleEdit(item.id)}>Edit</button>
-              <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
+              <button className="btn btn-warning" onClick={() => handleDelete(item.id)}>Delete</button>
             </td>
           </tr>
         ))}

@@ -1,5 +1,4 @@
 import GenericTable from '../GenericTable';
-import DepartmentMap from './DepartmentMap';
 
 const DepartmentTable = ({ departments, handleEdit, handleDelete }) => {
   const columns = [
@@ -11,7 +10,6 @@ const DepartmentTable = ({ departments, handleEdit, handleDelete }) => {
   return (
     <div>
       <GenericTable columns={columns} data={departments} handleEdit={handleEdit} handleDelete={handleDelete} />
-      <DepartmentMap />
     </div>
   );
 };

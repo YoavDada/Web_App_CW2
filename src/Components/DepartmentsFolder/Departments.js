@@ -4,6 +4,9 @@ import { API_BASE_URL } from '../../apiConfig';
 import DepartmentList from './DepartmentList';
 import DepartmentDetails from './DepartmentDetails';
 import DepartmentForm from './DepartmentForm';
+import DepartmentMap from './DepartmentMap';
+import Footer from '../Footer';
+import { Card, Row, Col } from 'react-bootstrap';
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
@@ -44,11 +47,13 @@ const Departments = () => {
     }
   };
 
+  /*
   const handleViewDetails = (id) => {
     const selected = departments.find((department) => department.id === id);
     setSelectedDepartment(selected);
     setEditingDepartment(null);
   };
+  */
 
   const handleCreate = () => {
     setSelectedDepartment(null);
@@ -85,7 +90,8 @@ const handleFormSubmit = async (event) => {
 };
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <div className="flex-grow-1">      
       <DepartmentList departments={departments} handleEdit={handleEdit} handleDelete={handleDelete} />
       {selectedDepartment && <DepartmentDetails department={selectedDepartment} />}
       {editingDepartment && (
@@ -96,7 +102,24 @@ const handleFormSubmit = async (event) => {
           handleCancel={handleCancelEdit}
         />
       )}
-      <button onClick={handleCreate}>Create New Department</button>
+      {!editingDepartment && <button onClick={handleCreate} className="btn btn-success">Create New Department</button>}
+      <Card>
+        <div className='row'>
+            <Col md={8}>
+              <DepartmentMap />
+            </Col>
+            <Col md={4}>
+              <Card.Body>
+                <Card.Title>Our Headquarters:</Card.Title>
+                <Card.Text>
+                  Our headquarters are situated in the heart of London on Cavendish Street. We welcome employees from all around the world to come visit our headquarters.
+                </Card.Text>
+              </Card.Body>
+            </Col>
+          </div>
+        </Card>
+      </div>
+      <Footer />
     </div>
   );
 };

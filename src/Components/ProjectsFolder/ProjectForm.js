@@ -3,7 +3,7 @@ import GenericForm from '../GenericForm'; // Importing the GenericForm component
 
 const ProjectForm = ({ employees, clients, project, handleInputChange, handleSubmit, handleCancel }) => {
   const fields = [
-    { name: 'projectName', label: 'Project Name', type: 'text' },
+    { name: 'projectName', label: 'Project Name', type: 'text', placeholder: 'Enter the name of the project' },
     { name: 'startDate', label: 'Start Date', type: 'date' },
     { name: 'endDate', label: 'End Date', type: 'date' },
     {

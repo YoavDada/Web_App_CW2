@@ -3,7 +3,7 @@ import GenericForm from '../GenericForm';
 
 const ExpenseForm = ({ projects, expense, handleInputChange, handleSubmit, handleCancel }) => {
   const fields = [
-    { name: 'amount', label: 'Amount', type: 'text' },
+    { name: 'amount', label: 'Amount', type: 'text', placeholder: 'Enter numeric value only' },
     { name: 'expenseDate', label: 'Date', type: 'date' },
     {
       name: 'projectName',

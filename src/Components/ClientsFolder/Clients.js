@@ -4,9 +4,11 @@ import { API_BASE_URL } from '../../apiConfig';
 import ClientList from './ClientList';
 import ClientDetails from './ClientDetails';
 import ClientForm from './ClientForm';
+import Footer from '../Footer'; 
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
+  const [error, setError] = useState('');
   const [selectedClient, setSelectedClient] = useState(null);
   const [editingClient, setEditingClient] = useState(null);
 
@@ -19,10 +21,16 @@ const Clients = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}Clients`);
       setClients(response.data);
+      setError('');
       setSelectedClient(null);
       setEditingClient(null);
     } catch (error) {
       console.error('Error fetching clients:', error);
+      if (error.response && error.response.data && error.response.data.length > 0) {
+        setError(error.response.data[0].description || 'Error registering the user');
+      } else {
+        setError('Unexpected error occurred. Please try again.');
+      }
     }
   };
 
@@ -46,11 +54,13 @@ const handleEdit = (id) => {
     }
   };
 
+  /*
   const handleViewDetails = (id) => {
     const selected = clients.find((client) => client.id === id);
     setSelectedClient(selected);
     setEditingClient(null);
   };
+  */
 
   const handleCreate = () => {
     setSelectedClient(null);
@@ -81,6 +91,7 @@ const handleFormSubmit = async (event) => {
     }
   } catch (error) {
     console.error('Error saving clients:', error);
+    setError('Error saving the client, please check the input')
     console.error('Response data:', error.response?.data);
   } finally {
     setEditingClient(null);
@@ -91,7 +102,9 @@ const handleFormSubmit = async (event) => {
 
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <div className="flex-grow-1">
+      {error && <div className="alert alert-warning" role="alert">{error}</div>}
       <ClientList clients={clients} handleEdit={handleEdit} handleDelete={handleDelete} />
       {selectedClient && <ClientDetails client={selectedClient} />}
       {editingClient && (
@@ -102,7 +115,9 @@ const handleFormSubmit = async (event) => {
           handleCancel={handleCancelEdit}
         />
       )}
-      <button onClick={handleCreate}>Create New Client</button>
+      {!editingClient && <button onClick={handleCreate} className="btn btn-success">Create New Client</button>}
+      </div>
+      <Footer />
     </div>
   );
 };
