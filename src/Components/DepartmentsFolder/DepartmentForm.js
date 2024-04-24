@@ -6,8 +6,8 @@ const DepartmentForm = ({ department, handleInputChange, handleSubmit, handleCan
     <GenericForm
       formData={department}
       fields={[
-        { name: 'departmentName', label: 'Department Name', type: 'text' },
-        { name: 'location', label: 'Location', type: 'text' },
+        { name: 'departmentName', label: 'Department Name', type: 'text', placeholder: 'Enter alphabetic values only' },
+        { name: 'location', label: 'Location', type: 'text', placeholder: 'Enter the city only' },
       ]}
       handleInputChange={handleInputChange}
       handleSubmit={handleSubmit}

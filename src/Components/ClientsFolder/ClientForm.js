@@ -6,8 +6,8 @@ const ClientForm = ({ client, handleInputChange, handleSubmit, handleCancel }) =
     <GenericForm
       formData={client}
       fields={[
-        { name: 'clientName', label: 'Client Name', type: 'text' },
-        { name: 'industry', label: 'Industry', type: 'text' },
+        { name: 'clientName', label: 'Client Name', type: 'text', placeholder: 'Enter the name of the client' },
+        { name: 'industry', label: 'Industry', type: 'text', placeholder: 'Enter the industry market' },
       ]}
       handleInputChange={handleInputChange}
       handleSubmit={handleSubmit}

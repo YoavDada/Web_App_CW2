@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../../apiConfig';
 import ProjectList from './ProjectList';
 import ProjectDetails from './ProjectDetails';
 import ProjectForm from './ProjectForm';
+import Footer from '../Footer'; 
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -13,7 +14,7 @@ const Projects = () => {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    // Fetch Project data when component mounts
+    // Fetch data when component mounts
     fetchProjects();
     fetchEmployees();
     fetchClients();
@@ -54,7 +55,6 @@ const handleEdit = (id) => {
   console.log('Selected project:', selected);
   setSelectedProject(null);
 
-  // Ensure that the property names match the expected format (id, firstName, lastName, enrollmentDate)
   setEditingProject({ id: selected.id, projectName: selected.projectName, startDate: selected.startDate, endDate: selected.endDate, employee: selected.employee, client: selected.client });
 };
 
@@ -69,11 +69,13 @@ const handleEdit = (id) => {
     }
   };
 
+  /*
   const handleViewDetails = (id) => {
     const selected = projects.find((project) => project.id === id);
     setSelectedProject(selected);
     setEditingProject(null);
   };
+  */
 
   const handleCreate = () => {
     setSelectedProject(null);
@@ -119,7 +121,8 @@ const handleFormSubmit = async (event) => {
 
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <div className="flex-grow-1"> 
       <ProjectList projects={projects} handleEdit={handleEdit} handleDelete={handleDelete} />
       {selectedProject && <ProjectDetails project={selectedProject} />}
       {editingProject && (
@@ -132,7 +135,9 @@ const handleFormSubmit = async (event) => {
           handleCancel={handleCancelEdit}
         />
       )}
-      <button onClick={handleCreate}>Create New Project</button>
+      {!editingProject && <button onClick={handleCreate} className="btn btn-success">Create New Project</button>}
+      </div>
+      <Footer />
     </div>
   );
 };

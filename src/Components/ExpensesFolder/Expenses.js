@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../../apiConfig';
 import ExpenseList from './ExpenseList';
 import ExpenseDetails from './ExpenseDetails';
 import ExpenseForm from './ExpenseForm';
+import Footer from '../Footer'; 
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -57,11 +58,13 @@ const handleEdit = (id) => {
     }
   };
 
+  /*
   const handleViewDetails = (id) => {
     const selected = expenses.find((expense) => expense.id === id);
     setSelectedExpense(selected);
     setEditingExpense(null);
   };
+  */
 
   const handleCreate = () => {
     setSelectedExpense(null);
@@ -101,23 +104,39 @@ const handleFormSubmit = async (event) => {
   }
 };
 
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  
+  if (name === 'amount') {
+    if (name === 'amount' && !/^\d*\.?\d*$/.test(value)) {
+      return; 
+  }
+  }
 
+  setEditingExpense(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
 
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <div className="flex-grow-1">
       <ExpenseList expenses={expenses} handleEdit={handleEdit} handleDelete={handleDelete} />
       {selectedExpense && <ExpenseDetails expense={selectedExpense} />}
       {editingExpense && (
         <ExpenseForm
             projects={projects}
             expense={editingExpense}
-            handleInputChange={(e) => setEditingExpense({ ...editingExpense, [e.target.name]: e.target.value })}
+            handleInputChange={handleInputChange}
             handleSubmit={handleFormSubmit}
             handleCancel={handleCancelEdit}
         />
       )}
-      <button onClick={handleCreate}>Create New Expense</button>
+      {!editingExpense && <button onClick={handleCreate} className="btn btn-success">Create New Expense</button>}
+      </div>
+      <Footer />
     </div>
   );
 };

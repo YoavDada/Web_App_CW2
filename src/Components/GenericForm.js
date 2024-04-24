@@ -2,15 +2,15 @@ import React from 'react';
 
 const GenericForm = ({ formData, fields, handleInputChange, handleSubmit, handleCancel }) => {
   return (
-    <div>
-      <h2>Form</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="container mt-5">
+      <form onSubmit={handleSubmit} className="form">
         {fields.map((field) => (
-          <div key={field.name}>
+          <div key={field.name} className="form-group">
             <label>
               {field.label}:
               {field.type === 'select' ? (
                 <select
+                  className="form-control"
                   name={field.name}
                   value={formData[field.name] || ''}
                   onChange={handleInputChange}
@@ -21,19 +21,23 @@ const GenericForm = ({ formData, fields, handleInputChange, handleSubmit, handle
                 </select>
               ) : (
                 <input
+                  className="form-control"
                   type={field.type}
                   name={field.name}
                   value={formData[field.name] || ''}
                   onChange={handleInputChange}
+                  placeholder={field.placeholder || ''}
                 />
               )}
             </label>
           </div>
         ))}
-        <button type="submit">Save</button>
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+        <div className="form-group">
+          <button type="submit" className="btn btn-outline-success">Save</button>
+          <button type="button" className="btn btn-outline-warning" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
